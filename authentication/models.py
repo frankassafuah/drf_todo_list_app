@@ -9,6 +9,9 @@ from django.contrib.auth.models import (
     BaseUserManager,
     UserManager,
 )
+import jwt
+from django.conf import settings
+from datetime import datetime, timedelta
 
 # Create your models here.
 
@@ -94,4 +97,13 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
 
     @property
     def token(self):
-        return ""
+        token = jwt.encode(
+            {
+                "username": self.username,
+                "email": self.email,
+                "exp": datetime.utcnow() + timedelta(hours=24),
+            },
+            settings.SECRET_KEY,
+            algorithm="HS256",
+        )
+        return token
