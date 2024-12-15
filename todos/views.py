@@ -11,6 +11,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from todos.models import Todo
 from rest_framework import response
 from django_filters.rest_framework import DjangoFilterBackend
+from todos.pagination import CustomPageNumberPagination
 
 # Create your views here.
 
@@ -45,6 +46,7 @@ class ListCreateTodosAPIView(ListCreateAPIView):
     filterset_fields = ["title", "description"]
     search_fields = ["title", "description"]  # e.g url?search=name
     ordering_fields = ["id", "title", "description"] #e.g url?ordering=id
+    pagination_class = CustomPageNumberPagination
 
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)
