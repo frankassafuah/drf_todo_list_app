@@ -18,7 +18,7 @@ class AuthUserAPIView(GenericAPIView):
 
 
 class RegisterAPIView(GenericAPIView):
-
+    authentication_classes = [] # empty list so that there will be no authentication
     serializer_class = RegisterSerializer
 
     def post(self, request):
@@ -34,6 +34,7 @@ class RegisterAPIView(GenericAPIView):
 
 class LoginAPIView(GenericAPIView):
 
+    authentication_classes = [] # empty list so that there will be no authentication
     serializer_class = LoginSerializer
 
     def post(self, request):
