@@ -7,8 +7,10 @@ from rest_framework.generics import (
 )
 from todos.serializers import TodoSerializer
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.filters import SearchFilter, OrderingFilter
 from todos.models import Todo
 from rest_framework import response
+from django_filters.rest_framework import DjangoFilterBackend
 
 # Create your views here.
 
@@ -32,10 +34,17 @@ class TodoListApiView(ListAPIView):
         return Todo.objects.filter(owner=self.request.user).all()
 
 
+# ------------------------
+
+
 # Shortcut to List and Create Todos. Does the same thing as the above views
 class ListCreateTodosAPIView(ListCreateAPIView):
     serializer_class = TodoSerializer
     permission_classes = [IsAuthenticated]
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
+    filterset_fields = ["title", "description"]
+    search_fields = ["title", "description"]  # e.g url?search=name
+    ordering_fields = ["id", "title", "description"] #e.g url?ordering=id
 
     def perform_create(self, serializer):
         return serializer.save(owner=self.request.user)

@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "authentication",
     "todos",
+    'django_filters'
     
 ]
 
@@ -130,5 +131,7 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": ["authentication.jwt.JWTAuthentication", ] # set jwt as default authentication class. DRF will use this to product all our views
+    "DEFAULT_AUTHENTICATION_CLASSES": ["authentication.jwt.JWTAuthentication", ], # set jwt as default authentication class. DRF will use this to protect all our views
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+
 }
