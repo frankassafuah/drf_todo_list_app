@@ -5,6 +5,8 @@ from todos.views import CreateTodoAPIView, TodoListApiView, ListCreateTodosAPIVi
 urlpatterns = [
     path("", ListCreateTodosAPIView.as_view(), name="todos"),
     path("<int:id>/", RetrieveUpdateDestroyTodoAPIView.as_view(), name="detail-todo"),
+
+    # for test
     path("list/", TodoListApiView.as_view(), name="list-todos"),
     path("create/", CreateTodoAPIView.as_view(), name="create-todo"),
 ]
